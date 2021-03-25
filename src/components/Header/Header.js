@@ -7,9 +7,10 @@ import {
   Button,
 } from "../../components/Material";
 import { MenuIcon } from "../../components/Material/Icons";
-import { DrawerMenu, Profile, Menu as HeaderMenu } from "../../components";
+import { DrawerMenu, Menu as HeaderMenu, Profile } from "../../components";
 import { makeStyles } from "@material-ui/core/styles";
 import menuItems from "../../constants/menuItems";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const classes = useStyles();
+  const history = useHistory();
+  console.log("history: ", history);
 
-  const handleMenuChange = () => {};
+  const handleMenuChange = ({ url }) => {
+    history.push(url);
+  };
 
   return (
     <div className={classes.root}>
@@ -54,15 +59,12 @@ function Header() {
             </Grid>
             <Grid>
               <HeaderMenu menuItems={menuItems} onChange={handleMenuChange} />
-
               <Button
                 className={classes.loginButton}
                 variant="contained"
                 size="small"
                 color="primary"
-                onClick={() => {
-                  // history.push("/login")
-                }}
+                onClick={() => history.push("/login")}
               >
                 Login
               </Button>
